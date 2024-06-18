@@ -1,23 +1,16 @@
-import { useState, useEffect } from 'react';
-import Container from 'react-bootstrap/Container';
-import Navbar from 'react-bootstrap/Navbar';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import NewsArtical from './StoreApi/NewsArtical';
-import '.././App.css'
+import { useState , useEffect } from 'react';
+import { Navbar, Nav, Form, Container, Col } from 'react-bootstrap';
+import News from '../News'
 
-const Header = () => {
-
+function Header() {
 
     const [storeApi, setStoreApi] = useState([]);
     const [filter, setFilter] = useState('');
     const [filterData, setFilterData] = useState([]);
-    const [bgChange , setBgChange] = useState()
     const [isTitle, setIsTitle] = useState(false);
+    const [bgChange , setBgChange] = useState()
 
-    
+
 
     useEffect(() => {
         setFilterData(
@@ -28,33 +21,36 @@ const Header = () => {
     }, [filter, storeApi]);
 
     useEffect( () => {
-        // setIsDarkMode();
-       
         document.body.className = isTitle ? 'dark-mode' : 'light-mode';
     },[isTitle])
 
     const handleTitle = (event) => {
-        // setIsTitle(event.target.checked)
         setIsTitle(prevMode => !prevMode)
     }
 
     return (
-        <div className={bgChange ? 'light-mode' : 'darkMode'}>
-            <Navbar className="bg-body-tertiary shadow-sm">
-                <Container>
-                    <Navbar.Brand className='fs-6 fs-md-4 fs-lg-3' href="#home">India News</Navbar.Brand>
-                    <Navbar.Toggle />
-                    <Navbar.Collapse className="justify-content-end">
-                        <Row>
-                            <Col xs="auto">
+        <>
+            <div className={bgChange ? 'light-mode container w-100' : 'darkMode container w-100'} >
+                <Navbar expand="lg" className="bg-body-tertiary w-100">
+                    <Container fluid>
+                        <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
+                        <Navbar.Toggle aria-controls="navbarScroll" />
+                        <Navbar.Collapse id="navbarScroll">
+                            <Nav
+                                className="me-auto my-2 my-lg-0"
+                                style={{ maxHeight: '100px' }}
+                                navbasrScroll
+                            >
+                            </Nav>
+                            <Form className="d-flex">
                                 <Form.Control
                                     value={filter} onChange={(e) => setFilter(e.target.value)}
-                                    type="text"
-                                    placeholder="Search News"
-                                    className=" mr-sm-2"
+                                    type="search"
+                                    placeholder="Search"
+                                    className="me-2"
+                                    aria-label="Search"
                                 />
-                            </Col>
-                            <Col xs="auto">
+                                 <Col xs="auto">
                                 <label className="switch">
                                     <span className="sun">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="#ffd43b"><circle r="5" cy="12" cx="12"></circle><path d="m21 13h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2zm-17 0h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2zm13.66-5.66a1 1 0 0 1 -.66-.29 1 1 0 0 1 0-1.41l.71-.71a1 1 0 1 1 1.41 1.41l-.71.71a1 1 0 0 1 -.75.29zm-12.02 12.02a1 1 0 0 1 -.71-.29 1 1 0 0 1 0-1.41l.71-.66a1 1 0 0 1 1.41 1.41l-.71.71a1 1 0 0 1 -.7.24zm6.36-14.36a1 1 0 0 1 -1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1 -1 1zm0 17a1 1 0 0 1 -1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1 -1 1zm-5.66-14.66a1 1 0 0 1 -.7-.29l-.71-.71a1 1 0 0 1 1.41-1.41l.71.71a1 1 0 0 1 0 1.41 1 1 0 0 1 -.71.29zm12.02 12.02a1 1 0 0 1 -.7-.29l-.66-.71a1 1 0 0 1 1.36-1.36l.71.71a1 1 0 0 1 0 1.41 1 1 0 0 1 -.71.24z"></path></g></svg></span>
@@ -65,20 +61,23 @@ const Header = () => {
                                     <span className="slider"></span>
                                 </label>
                             </Col>
-                        </Row>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
+                            </Form>
+                        </Navbar.Collapse>
+                    </Container>
+                </Navbar>
+            </div>
 
-            <NewsArtical
-                storeApi={storeApi}
-                setStoreApi={setStoreApi}
-                filter={filter}
-                setFilter={setFilter}
-                filterData={filterData}
-                setFilterData={setFilterData}
+            <News
+                 storeApi={storeApi}
+                 setStoreApi={setStoreApi}
+
+                 filter={filter}
+                 setFilter={setFilter}
+
+                 filterData={filterData}
+                 setFilterData={setFilterData}
             />
-        </div>
+        </>
     );
 }
 

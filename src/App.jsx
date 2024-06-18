@@ -1,15 +1,16 @@
-import NewsArtical from "./components/StoreApi/NewsArtical";
-import Header from "./components/Navbar";
+import React from 'react';
+import News from './News';
+import './App.css';
+import Header from './compnents/Header'
 
-
-const App = () => {
+function App() {
   return (
-      <>
+    <div className="App">
+      <header className="App-header">
         <Header />
-          {/* <NewsArtical /> */}
-
-      </>
+      </header>
+    </div>
   );
-};
+}
 
 export default App;
